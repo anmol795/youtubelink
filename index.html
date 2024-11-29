@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Open in Browser</title>
-    <script>
-        function redirect() {
-            window.open("https://www.youtube.com/watch?v=rpO501Y668o", "_system");
-        }
-    </script>
+  <title>Open YouTube</title>
+  <script>
+    // Attempt to automatically open the link after the dialog
+    function openYouTube() {
+      const youtubeLink = "intent://www.youtube.com/watch?v=rpO501Y668o#Intent;scheme=https;package=com.google.android.youtube;end";
+      
+      try {
+        // Attempt to open the intent URL
+        window.location.href = youtubeLink;
+      } catch (error) {
+        // If it fails, fallback to a standard YouTube link
+        window.location.href = "https://www.youtube.com/watch?v=rpO501Y668o";
+      }
+    }
+
+    // Wait 1 second to trigger the redirection (Instagram allows manual interaction)
+    setTimeout(openYouTube, 1000);
+  </script>
 </head>
-<body onload="redirect()">
-    <p>If the video does not open, <a href="https://www.youtube.com/watch?v=rpO501Y668o">click here</a>.</p>
+<body>
+  <p>If you are not redirected, <a href="intent://www.youtube.com/watch?v=rpO501Y668o#Intent;scheme=https;package=com.google.android.youtube;end">click here</a>.</p>
 </body>
 </html>
