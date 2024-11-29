@@ -1,26 +1,97 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Open YouTube</title>
-  <script>
-    // Attempt to automatically open the link after the dialog
-    function openYouTube() {
-      const youtubeLink = "intent://www.youtube.com/watch?v=rpO501Y668o#Intent;scheme=https;package=com.google.android.youtube;end";
-      
-      try {
-        // Attempt to open the intent URL
-        window.location.href = youtubeLink;
-      } catch (error) {
-        // If it fails, fallback to a standard YouTube link
-        window.location.href = "https://www.youtube.com/watch?v=rpO501Y668o";
-      }
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-
-    // Wait 1 second to trigger the redirection (Instagram allows manual interaction)
-    setTimeout(openYouTube, 1000);
-  </script>
+    .container {
+      text-align: center;
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      padding: 20px;
+      max-width: 400px;
+      width: 100%;
+    }
+    .logo {
+      width: 150px;
+      margin: 20px auto;
+    }
+    .message {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .btn {
+      display: block;
+      text-decoration: none;
+      padding: 12px 20px;
+      margin: 10px auto;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 5px;
+      width: 90%;
+      text-align: center;
+      transition: background-color 0.3s ease;
+    }
+    .btn-open {
+      background-color: #FF0000;
+      color: #ffffff;
+    }
+    .btn-open:hover {
+      background-color: #cc0000;
+    }
+    .btn-copy {
+      background-color: #f1f1f1;
+      color: #333333;
+      border: 1px solid #cccccc;
+    }
+    .btn-copy:hover {
+      background-color: #e1e1e1;
+    }
+    .footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #666;
+    }
+    .footer a {
+      text-decoration: none;
+      color: #666;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <p>If you are not redirected, <a href="intent://www.youtube.com/watch?v=rpO501Y668o#Intent;scheme=https;package=com.google.android.youtube;end">click here</a>.</p>
+  <div class="container">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/YouTube_icon_%282013-2017%29.svg/512px-YouTube_icon_%282013-2017%29.svg.png" alt="YouTube Logo" class="logo">
+    <p class="message">Open the video in YouTube or copy the link to share it!</p>
+    <a class="btn btn-open" href="intent://www.youtube.com/watch?v=rpO501Y668o#Intent;scheme=https;package=com.google.android.youtube;end">Open in YouTube App</a>
+    <button class="btn btn-copy" onclick="copyToClipboard()">Copy URL</button>
+    <p class="footer">Trouble opening? <a href="https://www.youtube.com/watch?v=rpO501Y668o" target="_blank">Click here to view in browser</a>.</p>
+  </div>
+
+  <script>
+    function copyToClipboard() {
+      const url = "https://www.youtube.com/watch?v=rpO501Y668o";
+      navigator.clipboard.writeText(url).then(() => {
+        alert("URL copied to clipboard!");
+      }).catch(err => {
+        alert("Failed to copy URL: " + err);
+      });
+    }
+  </script>
 </body>
 </html>
