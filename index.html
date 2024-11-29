@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Redirecting...</title>
+    <title>Open in YouTube</title>
     <script>
-        window.open("https://www.youtube.com/watch?v=rpO501Y668o", "_system");
+        function openYouTube() {
+            window.location.href = "intent://www.youtube.com/watch?v=rpO501Y668o#Intent;scheme=https;package=com.google.android.youtube;end";
+        }
     </script>
 </head>
 <body>
-    <p>If you are not redirected, <a href="https://www.youtube.com/watch?v=rpO501Y668o">click here</a>.</p>
+    <button onclick="openYouTube()">Open in YouTube</button>
 </body>
 </html>
