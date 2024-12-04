@@ -58,49 +58,66 @@
     </div>
 
     <script>
+        // Function to extract video ID from various YouTube URL formats
         function extractVideoId(url) {
             try {
+                // If the URL contains 'youtu.be/', extract the video ID
                 if (url.includes("youtu.be/")) {
-                    return url.split("youtu.be/")[1].split("?")[0];
-                } else if (url.includes("watch?v=")) {
-                    return url.split("watch?v=")[1].split("&")[0];
+                    const videoId = url.split("youtu.be/")[1].split(/[?&]/)[0];
+                    return videoId;
                 }
-                return null;
-            } catch {
+                // If the URL contains 'watch?v=', extract the video ID
+                if (url.includes("watch?v=")) {
+                    const videoId = url.split("watch?v=")[1].split(/[?&]/)[0];
+                    return videoId;
+                }
+                return null; // Return null if no valid video ID is found
+            } catch (error) {
+                console.error("Error extracting video ID:", error);
                 return null;
             }
         }
 
+        // Function to generate the third URL format
         function generateThirdUrl(videoId) {
-            return `intent://www.youtube.com/watch?v=${videoId.toLowerCase()}#Intent;scheme=https;package=com.google.android.youtube;end`;
+            return `intent://www.youtube.com/watch?v=${videoId}#Intent;scheme=https;package=com.google.android.youtube;end`;
         }
 
+        // Function to shorten the URL using TinyURL API
         async function shortenUrl(longUrl) {
             try {
                 const response = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`);
-                return await response.text();
+                return await response.text(); // TinyURL API returns the shortened URL as plain text
             } catch (error) {
                 console.error("Error shortening URL:", error);
                 return null;
             }
         }
 
+        // Main function to generate the shortened URL
         async function generateShortenedUrl() {
             const inputUrl = document.getElementById("inputUrl").value.trim();
+
+            // Validate input URL
             if (!inputUrl) {
                 alert("Please enter a valid YouTube URL.");
                 return;
             }
 
+            // Extract video ID
             const videoId = extractVideoId(inputUrl);
             if (!videoId) {
                 alert("Invalid YouTube URL. Please try again.");
                 return;
             }
 
+            // Generate the third URL format
             const thirdUrl = generateThirdUrl(videoId);
+
+            // Shorten the third URL
             const shortenedUrl = await shortenUrl(thirdUrl);
 
+            // Display the shortened URL or show an error
             if (shortenedUrl) {
                 document.getElementById("resultContainer").style.display = "block";
                 document.getElementById("shortenedUrl").textContent = shortenedUrl;
@@ -109,6 +126,7 @@
             }
         }
 
+        // Function to copy the shortened URL to the clipboard
         function copyToClipboard() {
             const shortenedUrl = document.getElementById("shortenedUrl").textContent;
             navigator.clipboard.writeText(shortenedUrl)
