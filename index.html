@@ -50,6 +50,7 @@
         <h1>YouTube URL Shortener</h1>
         <input type="text" id="inputUrl" placeholder="Enter YouTube URL">
         <button onclick="generateShortenedUrl()">Generate Shortened URL</button>
+        <button onclick="openYouTube()">Open YouTube</button> <!-- New Button -->
         <div id="resultContainer" class="result" style="display: none;">
             <p>Shortened URL:</p>
             <p id="shortenedUrl" style="word-wrap: break-word;"></p>
@@ -61,17 +62,15 @@
         // Function to extract video ID from various YouTube URL formats
         function extractVideoId(url) {
             try {
-                // If the URL contains 'youtu.be/', extract the video ID
                 if (url.includes("youtu.be/")) {
                     const videoId = url.split("youtu.be/")[1].split(/[?&]/)[0];
                     return videoId;
                 }
-                // If the URL contains 'watch?v=', extract the video ID
                 if (url.includes("watch?v=")) {
                     const videoId = url.split("watch?v=")[1].split(/[?&]/)[0];
                     return videoId;
                 }
-                return null; // Return null if no valid video ID is found
+                return null;
             } catch (error) {
                 console.error("Error extracting video ID:", error);
                 return null;
@@ -87,7 +86,7 @@
         async function shortenUrl(longUrl) {
             try {
                 const response = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`);
-                return await response.text(); // TinyURL API returns the shortened URL as plain text
+                return await response.text();
             } catch (error) {
                 console.error("Error shortening URL:", error);
                 return null;
@@ -98,26 +97,20 @@
         async function generateShortenedUrl() {
             const inputUrl = document.getElementById("inputUrl").value.trim();
 
-            // Validate input URL
             if (!inputUrl) {
                 alert("Please enter a valid YouTube URL.");
                 return;
             }
 
-            // Extract video ID
             const videoId = extractVideoId(inputUrl);
             if (!videoId) {
                 alert("Invalid YouTube URL. Please try again.");
                 return;
             }
 
-            // Generate the third URL format
             const thirdUrl = generateThirdUrl(videoId);
-
-            // Shorten the third URL
             const shortenedUrl = await shortenUrl(thirdUrl);
 
-            // Display the shortened URL or show an error
             if (shortenedUrl) {
                 document.getElementById("resultContainer").style.display = "block";
                 document.getElementById("shortenedUrl").textContent = shortenedUrl;
@@ -132,6 +125,12 @@
             navigator.clipboard.writeText(shortenedUrl)
                 .then(() => alert("Copied to clipboard!"))
                 .catch(() => alert("Failed to copy. Please try manually."));
+        }
+
+        // New function to open the specified YouTube URL
+        function openYouTube() {
+            const youtubeUrl = "https://youtube.com/@sufiranii?si=4QuIQWdPcIm3NKJc";
+            window.open(youtubeUrl, "_blank"); // Opens the URL in a new browser tab
         }
     </script>
 </body>
