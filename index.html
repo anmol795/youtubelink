@@ -1,97 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Open YouTube</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .container {
-      text-align: center;
-      background-color: #ffffff;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      padding: 20px;
-      max-width: 400px;
-      width: 100%;
-    }
-    .logo {
-      width: 150px;
-      margin: 20px auto;
-    }
-    .message {
-      font-size: 18px;
-      margin-bottom: 20px;
-      color: #333;
-    }
-    .btn {
-      display: block;
-      text-decoration: none;
-      padding: 12px 20px;
-      margin: 10px auto;
-      font-size: 16px;
-      font-weight: bold;
-      border-radius: 5px;
-      width: 90%;
-      text-align: center;
-      transition: background-color 0.3s ease;
-    }
-    .btn-open {
-      background-color: #FF0000;
-      color: #ffffff;
-    }
-    .btn-open:hover {
-      background-color: #cc0000;
-    }
-    .btn-copy {
-      background-color: #f1f1f1;
-      color: #333333;
-      border: 1px solid #cccccc;
-    }
-    .btn-copy:hover {
-      background-color: #e1e1e1;
-    }
-    .footer {
-      margin-top: 20px;
-      font-size: 14px;
-      color: #666;
-    }
-    .footer a {
-      text-decoration: none;
-      color: #666;
-    }
-    .footer a:hover {
-      text-decoration: underline;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube URL Shortener</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e7f5ff;
+            border-left: 4px solid #1c7ed6;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/YouTube_icon_%282013-2017%29.svg/512px-YouTube_icon_%282013-2017%29.svg.png" alt="YouTube Logo" class="logo">
-    <p class="message">Open the video in YouTube or copy the link to share it!</p>
-    <a class="btn btn-open" href="intent://www.youtube.com/watch?v=rpO501Y668o#Intent;scheme=https;package=com.google.android.youtube;end">Open in YouTube App</a>
-    <button class="btn btn-copy" onclick="copyToClipboard()">Copy URL</button>
-    <p class="footer">Trouble opening? <a href="https://www.youtube.com/watch?v=rpO501Y668o" target="_blank">Click here to view in browser</a>.</p>
-  </div>
+    <div class="container">
+        <h1>YouTube URL Shortener</h1>
+        <input type="text" id="inputUrl" placeholder="Enter YouTube URL">
+        <button onclick="generateShortenedUrl()">Generate Shortened URL</button>
+        <div id="resultContainer" class="result" style="display: none;">
+            <p>Shortened URL:</p>
+            <p id="shortenedUrl" style="word-wrap: break-word;"></p>
+            <button onclick="copyToClipboard()">Copy to Clipboard</button>
+        </div>
+    </div>
 
-  <script>
-    function copyToClipboard() {
-      const url = "https://www.youtube.com/watch?v=rpO501Y668o";
-      navigator.clipboard.writeText(url).then(() => {
-        alert("URL copied to clipboard!");
-      }).catch(err => {
-        alert("Failed to copy URL: " + err);
-      });
-    }
-  </script>
+    <script>
+        function extractVideoId(url) {
+            try {
+                if (url.includes("youtu.be/")) {
+                    return url.split("youtu.be/")[1].split("?")[0];
+                } else if (url.includes("watch?v=")) {
+                    return url.split("watch?v=")[1].split("&")[0];
+                }
+                return null;
+            } catch {
+                return null;
+            }
+        }
+
+        function generateThirdUrl(videoId) {
+            return `intent://www.youtube.com/watch?v=${videoId.toLowerCase()}#Intent;scheme=https;package=com.google.android.youtube;end`;
+        }
+
+        async function shortenUrl(longUrl) {
+            try {
+                const response = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`);
+                return await response.text();
+            } catch (error) {
+                console.error("Error shortening URL:", error);
+                return null;
+            }
+        }
+
+        async function generateShortenedUrl() {
+            const inputUrl = document.getElementById("inputUrl").value.trim();
+            if (!inputUrl) {
+                alert("Please enter a valid YouTube URL.");
+                return;
+            }
+
+            const videoId = extractVideoId(inputUrl);
+            if (!videoId) {
+                alert("Invalid YouTube URL. Please try again.");
+                return;
+            }
+
+            const thirdUrl = generateThirdUrl(videoId);
+            const shortenedUrl = await shortenUrl(thirdUrl);
+
+            if (shortenedUrl) {
+                document.getElementById("resultContainer").style.display = "block";
+                document.getElementById("shortenedUrl").textContent = shortenedUrl;
+            } else {
+                alert("Failed to shorten the URL. Please try again.");
+            }
+        }
+
+        function copyToClipboard() {
+            const shortenedUrl = document.getElementById("shortenedUrl").textContent;
+            navigator.clipboard.writeText(shortenedUrl)
+                .then(() => alert("Copied to clipboard!"))
+                .catch(() => alert("Failed to copy. Please try manually."));
+        }
+    </script>
 </body>
 </html>
