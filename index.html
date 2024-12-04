@@ -43,10 +43,31 @@
             border-left: 4px solid #1c7ed6;
             border-radius: 4px;
         }
+        .animated-title {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out;
+            color: #007BFF;
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Animated Title -->
+        <h1 class="animated-title">Welcome Sufi Rani</h1>
+
         <h1>YouTube URL Shortener</h1>
         <input type="text" id="inputUrl" placeholder="Enter YouTube URL">
         <button onclick="generateShortenedUrl()">Generate Shortened URL</button>
