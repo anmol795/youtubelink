@@ -11,7 +11,10 @@
             padding: 0;
             background-color: #f9f9f9;
             color: #333;
+            position: relative;
+            overflow-x: hidden;
         }
+
         .container {
             max-width: 600px;
             margin: 0 auto;
@@ -21,6 +24,7 @@
             border-radius: 8px;
             position: relative;
         }
+
         input, button {
             width: 100%;
             padding: 10px;
@@ -28,15 +32,18 @@
             border-radius: 4px;
             border: 1px solid #ccc;
         }
+
         button {
             background-color: #007BFF;
             color: white;
             font-size: 16px;
             cursor: pointer;
         }
+
         button:hover {
             background-color: #0056b3;
         }
+
         .result {
             margin-top: 20px;
             padding: 10px;
@@ -44,6 +51,7 @@
             border-left: 4px solid #1c7ed6;
             border-radius: 4px;
         }
+
         .animated-title {
             font-size: 2rem;
             font-weight: bold;
@@ -52,6 +60,7 @@
             animation: fadeIn 2s ease-in-out;
             color: #007BFF;
         }
+
         @keyframes fadeIn {
             0% {
                 opacity: 0;
@@ -62,46 +71,73 @@
                 transform: translateY(0);
             }
         }
-        /* Birthday Message Styling */
-        .birthday-message {
+
+        /* Birthday Banner Styling */
+        .birthday-banner {
             position: absolute;
-            top: -10px;
-            right: -10px;
-            background-color: #ffeb3b;
-            color: #333;
-            padding: 10px 15px;
-            border-radius: 50px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            top: 20px;
+            right: 20px;
+            padding: 20px 30px;
+            background: linear-gradient(135deg, #f39c12, #e74c3c);
+            color: white;
             font-weight: bold;
-            display: none; /* Hidden by default */
-            animation: popIn 0.5s ease-out;
+            font-size: 18px;
+            border-radius: 50px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: bounceIn 1s ease-in-out, float 2s infinite ease-in-out;
         }
-        @keyframes popIn {
-            from {
-                transform: scale(0.5);
+
+        .birthday-banner span {
+            font-size: 24px;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Animation for Banner */
+        @keyframes bounceIn {
+            0% {
                 opacity: 0;
+                transform: scale(0.3);
             }
-            to {
-                transform: scale(1);
+            50% {
+                opacity: 0.9;
+                transform: scale(1.1);
+            }
+            100% {
                 opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0);
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Birthday Message -->
-        <div class="birthday-message" id="birthdayMessage">
-            Best Happy Birthday for Sufi Rani!
-        </div>
+    <!-- Birthday Banner -->
+    <div class="birthday-banner" id="birthdayBanner" style="display: none;">
+        🎉 Best Happy Birthday, Sufi Rani! 🎂
+        <span>May your day shine as brightly as you!</span>
+    </div>
 
+    <div class="container">
         <!-- Animated Title -->
         <h1 class="animated-title">Welcome Sufi Rani</h1>
 
         <h1>YouTube URL Shortener</h1>
         <input type="text" id="inputUrl" placeholder="Enter YouTube URL">
         <button onclick="generateShortenedUrl()">Generate Shortened URL</button>
-        <button onclick="openYouTube()">Open YouTube</button> <!-- New Button -->
+        <button onclick="openYouTube()">Open YouTube</button>
         <div id="resultContainer" class="result" style="display: none;">
             <p>Shortened URL:</p>
             <p id="shortenedUrl" style="word-wrap: break-word;"></p>
@@ -110,21 +146,21 @@
     </div>
 
     <script>
-        // Function to show the birthday message if today is the birthday
-        function showBirthdayMessage() {
-            const birthdayMessage = document.getElementById('birthdayMessage');
+        // Function to show the birthday banner on the correct date
+        function showBirthdayBanner() {
+            const banner = document.getElementById('birthdayBanner');
             const today = new Date();
             const birthdayMonth = today.getMonth(); // Months are zero-indexed (0 = January)
             const birthdayDate = today.getDate();    // 1-31
 
             // Set your birthday month and date here
-            const myBirthdayMonth = 11; // December (0 = January, so 11 = December)
-            const myBirthdayDate = 30; // 30th
+            const myBirthdayMonth = 11; // Example: December (0 = January, so 11 = December)
+            const myBirthdayDate = 30;  // Example: 30th
 
             if (today.getMonth() === myBirthdayMonth && today.getDate() === myBirthdayDate) {
-                birthdayMessage.style.display = "block";
+                banner.style.display = "block";
             } else {
-                birthdayMessage.style.display = "none";
+                banner.style.display = "none";
             }
         }
 
@@ -201,9 +237,9 @@
             window.open(youtubeUrl, "_blank"); // Opens the URL in a new browser tab
         }
 
-        // Call showBirthdayMessage on page load
+        // Call showBirthdayBanner on page load
         window.onload = function() {
-            showBirthdayMessage();
+            showBirthdayBanner();
         }
     </script>
 </body>
