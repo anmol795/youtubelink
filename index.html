@@ -78,24 +78,25 @@
             top: 10px;
             left: 50%;
             transform: translateX(-50%);
-            display: inline-block;
-            padding: 15px 25px;
+            display: block;
+            margin: 0 auto;
+            padding: 10px 20px;
             background: linear-gradient(135deg, #f39c12, #e74c3c);
             color: white;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 18px; /* Slightly reduced font size */
             border-radius: 50px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             text-align: center;
             animation: bounceIn 1s ease-in-out, float 2s infinite ease-in-out;
             z-index: 9999;
-            max-width: 90%;
+            max-width: 80%;
+            width: auto;
             box-sizing: border-box;
-            white-space: normal; /* Allows the text to wrap, preventing cutoff */
         }
 
         .birthday-banner span {
-            font-size: 24px;
+            font-size: 20px;
             display: block;
             margin-top: 5px;
         }
@@ -156,17 +157,15 @@
         function showBirthdayBanner() {
             const banner = document.getElementById('birthdayBanner');
             const today = new Date();
-            // Extract current month and date
-            const birthdayMonth = today.getMonth(); 
-            const birthdayDate = today.getDate();   
+            const birthdayMonth = today.getMonth(); // 0 = January
+            const birthdayDate = today.getDate();   // 1-31
 
             // Set your birthday month and date here
             const myBirthdayMonth = 0; // January
             const myBirthdayDate = 12; // 12th
 
-            // Display the banner if today's date matches the birthday
             if (birthdayMonth === myBirthdayMonth && birthdayDate === myBirthdayDate) {
-                banner.style.display = "inline-block";
+                banner.style.display = "block";
             } else {
                 banner.style.display = "none";
             }
