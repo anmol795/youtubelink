@@ -79,7 +79,6 @@
             left: 50%;
             transform: translateX(-50%);
             display: inline-block;
-            white-space: nowrap;
             padding: 15px 25px;
             background: linear-gradient(135deg, #f39c12, #e74c3c);
             color: white;
@@ -92,6 +91,7 @@
             z-index: 9999;
             max-width: 90%;
             box-sizing: border-box;
+            white-space: normal; /* Allows the text to wrap, preventing cutoff */
         }
 
         .birthday-banner span {
