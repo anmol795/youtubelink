@@ -17,14 +17,15 @@
 
         .container {
             max-width: 600px;
-            margin: 120px auto 0 auto; /* Adjusted top margin to prevent overlap */
-            padding: 20px;
+            margin: 60px auto 0 auto; /* Adjusted top margin to prevent overlap */
+            padding: 20px 10px; /* Set padding top/bottom to 20px and left/right to 10px */
             background: #fff;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             position: relative;
         }
-
+        
+      
         input, button {
             width: 100%;
             padding: 10px;
@@ -32,7 +33,13 @@
             border-radius: 4px;
             border: 1px solid #ccc;
         }
-
+        input {
+            width: 96%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
         button {
             background-color: #007BFF;
             color: white;
@@ -108,9 +115,9 @@
             justify-content: center;
             text-align: center;
             margin: 0 auto;
-            padding: 20px;
+            padding: 10px;
             background: linear-gradient(135deg, #f39c12, #e74c3c);
-            font-size: 20px;
+            font-size: 16px;
             border-radius: 50px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             animation: bounceIn 1s ease-in-out, float 2s infinite ease-in-out;
