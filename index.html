@@ -77,7 +77,7 @@
             position: fixed;
             top: 10px;
             left: 50%;
-            transform: translate(-50%, 0); /* Perfectly centers the banner */
+            transform: translate(-50%, 0); /* Keeps the banner centered at the top */
             padding: 15px 25px;
             background: linear-gradient(135deg, #f39c12, #e74c3c);
             color: white;
@@ -156,8 +156,8 @@
             const birthdayDate = today.getDate();    // 1-31
 
             // Set your birthday month and date here
-            const myBirthdayMonth = 11; // Example: December (0 = January, so 11 = December)
-            const myBirthdayDate = 30;  // Example: 30th
+            const myBirthdayMonth = 0; // January
+            const myBirthdayDate = 12; // 12th
 
             if (today.getMonth() === myBirthdayMonth && today.getDate() === myBirthdayDate) {
                 banner.style.display = "block";
