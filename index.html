@@ -78,25 +78,24 @@
             top: 10px;
             left: 50%;
             transform: translateX(-50%);
-            display: block;
-            margin: 0 auto;
-            padding: 10px 20px;
+            display: inline-block;
+            white-space: nowrap;
+            padding: 15px 25px;
             background: linear-gradient(135deg, #f39c12, #e74c3c);
             color: white;
             font-weight: bold;
-            font-size: 18px; /* Slightly reduced font size */
+            font-size: 20px;
             border-radius: 50px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             text-align: center;
             animation: bounceIn 1s ease-in-out, float 2s infinite ease-in-out;
             z-index: 9999;
-            max-width: 80%;
-            width: auto;
+            max-width: 90%;
             box-sizing: border-box;
         }
 
         .birthday-banner span {
-            font-size: 20px;
+            font-size: 24px;
             display: block;
             margin-top: 5px;
         }
@@ -157,15 +156,17 @@
         function showBirthdayBanner() {
             const banner = document.getElementById('birthdayBanner');
             const today = new Date();
-            const birthdayMonth = today.getMonth(); // 0 = January
-            const birthdayDate = today.getDate();   // 1-31
+            // Extract current month and date
+            const birthdayMonth = today.getMonth(); 
+            const birthdayDate = today.getDate();   
 
             // Set your birthday month and date here
             const myBirthdayMonth = 0; // January
             const myBirthdayDate = 12; // 12th
 
+            // Display the banner if today's date matches the birthday
             if (birthdayMonth === myBirthdayMonth && birthdayDate === myBirthdayDate) {
-                banner.style.display = "block";
+                banner.style.display = "inline-block";
             } else {
                 banner.style.display = "none";
             }
