@@ -160,7 +160,7 @@
 </head>
 <body>
    <!-- Birthday Banner -->
-    <div class="birthday-message">
+    <div id="birthdayBanner" class="birthday-message" style="display: none;">
         🎉 Best Happy Birthday, Sufi Rani! 🎂
         <span>May your day shine as brightly as you!</span>
     </div>
@@ -182,23 +182,23 @@
 
     <script>
         // Function to show the birthday banner only once and hide after 5 seconds
-        function showBirthdayBanner() {
-            const banner = document.getElementById('birthdayBanner');
+       function showBirthdayBanner() {
+        const banner = document.getElementById('birthdayBanner'); // Corrected to match the id
 
-            // Check if the banner has already been shown
-            const bannerShown = localStorage.getItem('birthdayBannerShown');
+        // Check if the banner has already been shown
+        const bannerShown = localStorage.getItem('birthdayBannerShown');
 
-            if (!bannerShown) {
-                // Show the banner
-                banner.style.display = "flex";
+        if (!bannerShown) {
+            // Show the banner
+            banner.style.display = "flex";
 
-                // Hide the banner after 5 seconds and set the flag
-                setTimeout(() => {
-                    banner.style.display = "none";
-                    localStorage.setItem('birthdayBannerShown', 'true');
-                }, 5000);
-            }
+            // Hide the banner after 5 seconds and set the flag
+            setTimeout(() => {
+                banner.style.display = "none";
+                localStorage.setItem('birthdayBannerShown', 'true');
+            }, 5000);
         }
+    }
 
         // Function to extract video ID from various YouTube URL formats
         function extractVideoId(url) {
