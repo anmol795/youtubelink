@@ -83,45 +83,47 @@
             position: fixed;
             top: 10px;
             left: 50%;
+            right: auto; /* Ensures no conflicting right alignment */
             transform: translateX(-50%);
+            display: inline-block;
             white-space: nowrap;
             padding: 15px 25px;
             background: linear-gradient(135deg, #f39c12, #e74c3c);
             color: white;
             font-weight: bold;
-            font-size: 16px;
-            border-radius: 20px;
+            font-size: 20px;
+            border-radius: 50px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             text-align: center;
             animation: bounceIn 1s ease-in-out, float 2s infinite ease-in-out;
             z-index: 9999;
-            width: 100%;
-            margin: auto;
+            width:100%;
+            margin :auto;
+        /*    max-width: 90%;*/
             box-sizing: border-box;
         }
 
-        .birthday-banner span {
+       .birthday-banner span {
             font-size: 24px;
             display: block;
             margin-top: 5px;
-        }
-        .birthday-message {
+        }.birthday-message {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
             margin: 0 auto;
-            padding: 10px;
+            padding:  10px; /* Set padding top/bottom to 20px and left/right to 10px */
             background: linear-gradient(135deg, #f39c12, #e74c3c);
             font-size: 16px;
-            border-radius: 20px;
+            border-radius: 50px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             animation: bounceIn 1s ease-in-out, float 2s infinite ease-in-out;
             text-align: center;
             color: white;
-            max-width: 600px;
-        }
+            max-width: 600px; /* Optional: Limit the width */
+          }
           
         .birthday-message span {
             font-size: 1.2em;
@@ -157,9 +159,9 @@
     </style>
 </head>
 <body>
-    <!-- Birthday Banner -->
-    <div id="birthdayBanner" class="birthday-message" style="display: none;">
-        🎉Wishing You Happy Birthday Sufi Rani🎂
+   <!-- Birthday Banner -->
+    <div class="birthday-message">
+        🎉 Best Happy Birthday, Sufi Rani! 🎂
         <span>May your day shine as brightly as you!</span>
     </div>
     
