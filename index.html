@@ -98,9 +98,8 @@
             text-align: center;
             animation: bounceIn 1s ease-in-out, float 2s infinite ease-in-out;
             z-index: 9999;
-            width:100%;
-            margin :auto;
-        /*    max-width: 90%;*/
+            width: 100%;
+            margin: auto;
             box-sizing: border-box;
         }
 
@@ -108,14 +107,15 @@
             font-size: 24px;
             display: block;
             margin-top: 5px;
-        }.birthday-message {
+        }
+        .birthday-message {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
             margin: 0 auto;
-            padding:  10px; /* Set padding top/bottom to 20px and left/right to 10px */
+            padding: 10px; /* Set padding top/bottom to 20px and left/right to 10px */
             background: linear-gradient(135deg, #f39c12, #e74c3c);
             font-size: 16px;
             border-radius: 50px;
@@ -124,14 +124,13 @@
             text-align: center;
             color: white;
             max-width: 600px; /* Optional: Limit the width */
-          }
+        }
           
-          .birthday-message span {
+        .birthday-message span {
             font-size: 1.2em;
             color: white; /* Optional: Text color */
-          }
+        }
           
-
         /* Animation for Banner */
         @keyframes bounceIn {
             0% {
@@ -163,7 +162,7 @@
 </head>
 <body>
     <!-- Birthday Banner -->
-    <div class="birthday-message">
+    <div id="birthdayBanner" class="birthday-message">
         🎉 Best Happy Birthday, Sufi Rani! 🎂
         <span>May your day shine as brightly as you!</span>
     </div>
@@ -184,8 +183,14 @@
     </div>
 
     <script>
-        // Function to show the birthday banner on the correct date
+        // Function to show the birthday banner for 5 seconds only once per device
         function showBirthdayBanner() {
+            // Check if banner has been shown before
+            if(localStorage.getItem('birthdayBannerShown')) {
+                // If already shown, hide the banner immediately
+                document.getElementById('birthdayBanner').style.display = "none";
+                return;
+            }
             const banner = document.getElementById('birthdayBanner');
             const today = new Date();
             // Extract current month and date
@@ -199,6 +204,11 @@
             // Display the banner if today's date matches the birthday
             if (birthdayMonth === myBirthdayMonth && birthdayDate === myBirthdayDate) {
                 banner.style.display = "inline-block";
+                // After 5 seconds, hide the banner and mark it as shown in localStorage
+                setTimeout(() => {
+                    banner.style.display = "none";
+                    localStorage.setItem('birthdayBannerShown', 'true');
+                }, 5000);
             } else {
                 banner.style.display = "none";
             }
